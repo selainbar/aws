@@ -1,24 +1,22 @@
-def countLogsWith(string: str):
+def countLogsWith(strings: list[str]):
+    data = []
     try:
         with open("/var/log/syslog", "r") as file:
             logs = file.read()
-        count = logs.lower().count(string.lower())
-        return count
+        for keyword in strings:
+            data.append((keyword, logs.lower().count(keyword.lower())))
+        return data
     except Exception as e:
         print(f"An error occurred: {e}")
 
 def main():
-    data = []
-    output = countLogsWith("INFO")
-    data.append(('INFO',output))
-    output = countLogsWith("WARN")
-    data.append(('WARN',output))
-    output = countLogsWith("ERROR")
-    data.append(('ERROR',output))
-    with open("data.txt", "w") as file:
-        for item in data:
-            file.write(f"{item[0]}:{item[1]} ")
-
+    data = countLogsWith(['INFO','WARN','ERROR'])
+    formated_data = ''
+    for item in data:
+        formated_data += f'{item[0]}:{item[1]} '
+    print(formated_data)
+    
 if __name__ == "__main__":
     main()
+
     
