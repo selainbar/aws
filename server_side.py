@@ -1,3 +1,5 @@
+import json
+
 def countLogsWith(strings: list[str]):
     counts = {keyword: 0 for keyword in strings}
     try:
@@ -12,9 +14,7 @@ def countLogsWith(strings: list[str]):
 
 def main():
     data = countLogsWith(['INFO', 'WARN', 'ERROR'])
-    formated_data = ' '.join(f'{item[0]}:{item[1]}' for item in data)
-    print(formated_data)
-    
+    print(json.dumps(data))    
 if __name__ == "__main__":
     main()
 
