@@ -1,4 +1,5 @@
 import json
+import time
 
 def countLogsWith(strings: list[str]):
     counts = {keyword: 0 for keyword in strings}
@@ -8,7 +9,10 @@ def countLogsWith(strings: list[str]):
                 lower_line = line.lower()
                 for keyword in counts:
                     counts[keyword] += lower_line.count(keyword.lower())
-        return [(keyword, counts[keyword]) for keyword in strings]
+        data = {"timestamp": time.time()}
+        for keyword in counts:
+            data[keyword] = counts[keyword]
+        return data
     except Exception as e:
         print(f"An error occurred: {e}")
 
